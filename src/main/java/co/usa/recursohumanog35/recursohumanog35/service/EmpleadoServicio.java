@@ -39,4 +39,42 @@ public class EmpleadoServicio {
         }
     }
 
+    public Empleado update(Empleado empleado){
+        if (empleado.getNumId()!=null) {
+            Optional<Empleado> consulta=empleadorepositorio.getEmpleado(empleado.getNumId());
+            if (!consulta.isEmpty()) {
+                if (empleado.getNombre()!=null) {
+                    consulta.get().setNombre(empleado.getNombre());                    
+                }
+                if (empleado.getEdad()!=null) {
+                    consulta.get().setEdad(empleado.getEdad());
+                    
+                }
+                if (empleado.getCiudad()!=null) {
+                    consulta.get().setCiudad(empleado.getCiudad());                    
+                }
+                if (empleado.getSalario()!=null) {
+                    consulta.get().setSalario(empleado.getSalario());
+                    
+                }
+
+                return empleadorepositorio.save(consulta.get());                              
+            }
+
+            
+        }
+        return empleado;
+    }
+
+    public boolean deleteEmpleado(int numId){
+        Optional<Empleado> consulta=empleadorepositorio.getEmpleado(numId);
+        if (!consulta.isEmpty()) {
+            empleadorepositorio.delete(consulta.get());
+            return true;
+            
+        }
+        return false;
+    }
+    
+
 }

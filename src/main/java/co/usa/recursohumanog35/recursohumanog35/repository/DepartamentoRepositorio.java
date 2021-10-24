@@ -27,6 +27,12 @@ public class DepartamentoRepositorio {
         return departamentoCrudRepositorio.save(dpto);
     }
 
+    public void delete(Departamento dpto){
+        departamentoCrudRepositorio.delete(dpto);
+    }
+
+    
+
 
 
 

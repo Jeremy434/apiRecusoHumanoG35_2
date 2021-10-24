@@ -37,5 +37,35 @@ public class DepartamentoServicio {
         }
 
     }
+
+    public Departamento update(Departamento dpto){
+        if (dpto.getNumId()!=null) {
+            Optional<Departamento> consulta=departamentoRepositorio.getDepartamento(dpto.getNumId());
+            if (!consulta.isEmpty()) {
+                if (dpto.getNombreDepartamento()!=null) {
+                    consulta.get().setNombreDepartamento(dpto.getNombreDepartamento());                    
+                }
+                if (dpto.getFechaCreacionDate()!=null) {
+                    consulta.get().setFechaCreacionDate(dpto.getFechaCreacionDate());
+                    
+                }
+
+                return departamentoRepositorio.save(consulta.get());                
+            }
+            
+        }
+        return dpto;
+
+    }
+
+    public boolean deleteDepartamento(int numId){
+        Optional<Departamento> consulta=departamentoRepositorio.getDepartamento(numId);
+        if (!consulta.isEmpty()) {
+            departamentoRepositorio.delete(consulta.get());
+            return true;
+            
+        }
+        return false;
+    }
     
 }
